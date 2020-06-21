@@ -1,6 +1,6 @@
 # Copyright (C) 2019 The Raphielscape Company LLC.
 #
-# Licensed under the Raphielscape Public License, Version 1.c (the "License");
+# Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module containing various sites direct links generators"""
@@ -339,7 +339,7 @@ def useragent():
 
 CMD_HELP.update({
     "direct":
-    ">`.dir / direct <url>`"
+    "`.dir / direct <url>`"
     "\nUsage: Reply to a link or paste a URL to\n"
     "generate a direct download link\n\n"
     "List of supported URLs:\n"

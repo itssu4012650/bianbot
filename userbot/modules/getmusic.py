@@ -1,5 +1,9 @@
 # Copyright (C) 2020 Aidil Aryanto.
 # All rights reserved.
+#
+# Licensed under the Raphielscape Public License, Version 1.d (the "License");
+# you may not use this file except in compliance with the License.
+#
 
 import datetime
 import asyncio
@@ -92,10 +96,10 @@ async def _(event):
 
 CMD_HELP.update({
     "getmusic":
-    ">`.netease <Artist - Song Title>`"
+    "`.netease <Artist - Song Title>`"
     "\nUsage: Download music with @WooMaiBot"
-    "\n\n>`.sdd <Spotify/Deezer Link>`"
+    "\n\n`.sdd <Spotify/Deezer Link>`"
     "\nUsage: Download music from Spotify or Deezer"
-    "\n\n>`.smd <Artist - Song Title>`"
+    "\n\n`.smd <Artist - Song Title>`"
     "\nUsage: Download music from Spotify"
 })

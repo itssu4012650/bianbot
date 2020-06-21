@@ -28,12 +28,7 @@ async def help(event):
         sep2 = "========================================="
         for i in CMD_HELP:
             string += "`" + str(i)
-            string += "`  |  "
-        await event.edit(f"{head}\
-              \n{sep2}\
-              \n{head2}\
-              \n{head3}\
-              \n{sep2}\
-              \n{head4}\
-              \n\n{string}\
-              \n{sep1}")
+            string += "`\t\t\t||\t\t\t "
+        await event.edit("Specify which module do you want help for !!\
+                        \n**Usage:** `.help` <module name>\n\n"
+                        f"{string}")
