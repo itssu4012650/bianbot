@@ -14,7 +14,6 @@ from sys import setrecursionlimit
 from telethon.errors import AboutTooLongError
 from telethon.tl.functions.account import UpdateProfileRequest
 from telethon.tl.functions.users import GetFullUserRequest
-from telethon.tl.types import User as Userbot
 from telethon.errors.rpcerrorlist import FloodWaitError
 
 from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, DEFAULT_BIO, BIO_PREFIX, lastfm, LASTFM_USERNAME, bot
@@ -47,7 +46,7 @@ LastLog = False
 
 @register(outgoing=True, pattern="^.lastfm$")
 async def last_fm(lastFM):
-    """ For .lastfm command, fetch scrobble data from last.fm. """
+    """For .lastfm command, fetch scrobble data from last.fm."""
     await lastFM.edit("Processing...")
     preview = None
     playing = User(LASTFM_USERNAME, lastfm).get_now_playing()
@@ -58,14 +57,14 @@ async def last_fm(lastFM):
                          lastfm).get_now_playing().get_cover_image()
         except IndexError:
             image = None
-            pass
         tags = await gettags(isNowPlaying=True, playing=playing)
         rectrack = parse.quote(f"{playing}")
         rectrack = sub("^", "https://open.spotify.com/search/",
                        rectrack)
         if image:
-            output = (f"[‎]({image})[{LASTFM_USERNAME}]({username}) __is now listening to:"
-                      f"__\n\n• [{playing}]({rectrack})\n`{tags}`")
+            output = (
+                f"[‎]({image})[{LASTFM_USERNAME}]({username}) __is now listening to:"
+                f"__\n\n• [{playing}]({rectrack})\n`{tags}`")
             preview = True
         else:
             output = (f"[{LASTFM_USERNAME}]({username}) __is now listening to:"
@@ -218,12 +217,9 @@ async def lastlog(lstlog):
         await lstlog.edit(LFM_LOG_ERR)
 
 
-CMD_HELP.update({
-    'lastfm':
-    "`.lastfm`\
-    \nUsage: Shows currently scrobbling track or most recent scrobbles if nothing is playing.\
-    \n\n`.lastbio` <on/off>\
-    \nUsage: Enables/Disables last.fm current playing to bio.\
-    \n\n`.lastlog` <on/off>\
-    \nUsage: Enable/Disable last.fm bio logging in the bot-log group."
-})
+CMD_HELP.update({'lastfm': "`.lastfm`"
+                 "\nUsage: Shows currently scrobbling track or most recent scrobbles if nothing is playing."
+                 "\n\n`.lastbio` <on/off>"
+                 "\nUsage: Enables/Disables last.fm current playing to bio."
+                 "\n\n`.lastlog` <on/off>"
+                 "\nUsage: Enable/Disable last.fm bio logging in the bot-log group."})

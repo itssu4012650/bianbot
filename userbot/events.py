@@ -3,8 +3,7 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
-""" Userbot module for managing events.
- One of the main components of the userbot. """
+"""Userbot module for managing events. One of the main components of the userbot."""
 
 import sys
 from asyncio import create_subprocess_shell as asyncsubshell
@@ -46,7 +45,7 @@ def register(**args):
 
     if "trigger_on_fwd" in args:
         del args['trigger_on_fwd']
-	
+
     if "insecure" in args:
         del args['insecure']
 
@@ -84,7 +83,8 @@ def register(**args):
 
             except events.StopPropagation:
                 raise events.StopPropagation
-            # This is a gay exception and must be passed out. So that it doesnt spam chats
+            # This is a gay exception and must be passed out. So that it doesnt
+            # spam chats
             except KeyboardInterrupt:
                 pass
             except BaseException:
@@ -97,7 +97,7 @@ def register(**args):
                     date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 
                     text = "**USERBOT ERROR REPORT**\n"
-                    link = "[OUB Support Chat](https://t.me/PPE_Support)"
+                    link = "[USERBOT INDO](https://t.me/userbotindo)"
                     text += "If you want to, you can report it"
                     text += f"- just forward this message to {link}.\n"
                     text += "Nothing is logged except the fact of error and date\n"
@@ -139,7 +139,7 @@ def register(**args):
                     file.close()
 
                     if LOGSPAMMER:
-                        await check.client.respond(
+                        await check.respond(
                             "`Sorry, my userbot has crashed.\
                         \nThe error logs are stored in the userbot's log chat.`"
                         )

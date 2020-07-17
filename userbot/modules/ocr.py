@@ -3,10 +3,8 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 
-from telethon import events
 import os
 import requests
-import logging
 from userbot import bot, OCR_SPACE_API_KEY, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
@@ -15,7 +13,7 @@ async def ocr_space_file(filename,
                          overlay=False,
                          api_key=OCR_SPACE_API_KEY,
                          language='eng'):
-    """ OCR.space API request with local file.
+    """OCR.space API request with local file.
         Python3.5 - not tested on 2.7
     :param filename: Your file path & name.
     :param overlay: Is OCR.space overlay required in your response.
@@ -25,8 +23,7 @@ async def ocr_space_file(filename,
     :param language: Language code to be used in OCR.
                     List of available language codes can be found on https://ocr.space/OCRAPI
                     Defaults to 'en'.
-    :return: Result in JSON format.
-    """
+    :return: Result in JSON format."""
 
     payload = {
         'isOverlayRequired': overlay,

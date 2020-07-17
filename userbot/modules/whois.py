@@ -101,16 +101,16 @@ async def fetch_info(replied_user, event):
     replied_user_profile_photos_count = "Person needs help with uploading profile picture."
     try:
         replied_user_profile_photos_count = replied_user_profile_photos.count
-    except AttributeError as e:
+    except AttributeError:
         pass
     user_id = replied_user.user.id
     first_name = replied_user.user.first_name
     last_name = replied_user.user.last_name
     try:
-        dc_id, location = get_input_location(replied_user.profile_photo)
+        dc_id, _ = get_input_location(replied_user.profile_photo)
     except Exception as e:
         dc_id = "Couldn't fetch DC ID!"
-        location = str(e)
+        str(e)
     common_chat = replied_user.common_chats_count
     username = replied_user.user.username
     user_bio = replied_user.about
@@ -141,7 +141,7 @@ async def fetch_info(replied_user, event):
     caption += f"ID: <code>{user_id}</code>\n\n"
     caption += f"Bio: \n<code>{user_bio}</code>\n\n"
     caption += f"Common Chats with this user: {common_chat}\n"
-    caption += f"Permanent Link To Profile: "
+    caption += "Permanent Link To Profile: "
     caption += f"<a href=\"tg://user?id={user_id}\">{first_name}</a>"
 
     return photo, caption
@@ -149,6 +149,6 @@ async def fetch_info(replied_user, event):
 
 CMD_HELP.update({
     "whois":
-    "`.whois` <username> or reply to someones text with .whois\
-    \nUsage: Gets info of an user."
+    "`.whois` <username> or reply to someones text with .whois"
+    "\nUsage: Gets info of an user."
 })

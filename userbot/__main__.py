@@ -3,7 +3,7 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
-""" Userbot start point """
+"""Userbot start point"""
 
 from importlib import import_module
 from sys import argv
@@ -30,7 +30,7 @@ for module_name in ALL_MODULES:
 LOGS.info("You are running Userbutt [ver : MORE & MORE]")
 
 LOGS.info(
-    "Congratulations, your userbot is now running !!" 
+    "Congratulations, your userbot is now running !!"
     "Test it by typing .alive, .on or .alive in any chat."
     "for further assistance, head to https://t.me/userbotindo")
 

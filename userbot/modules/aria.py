@@ -33,7 +33,7 @@ trackers = f"[{trackers_list}]"
 cmd = f"aria2c \
 --enable-rpc \
 --rpc-listen-all=false \
---rpc-listen-port 6800 \
+--rpc-listen-port 8210 \
 --max-connection-per-server=10 \
 --rpc-max-request-size=1024M \
 --seed-time=0.01 \
@@ -51,7 +51,7 @@ if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
     os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
 download_path = os.getcwd() + TEMP_DOWNLOAD_DIRECTORY.strip('.')
 
-aria2 = aria2p.API(aria2p.Client(host="http://localhost", port=6800,
+aria2 = aria2p.API(aria2p.Client(host="http://localhost", port=8210,
                                  secret=""))
 
 aria2.set_global_options({'dir': download_path})
@@ -199,8 +199,7 @@ async def check_progress_for_dl(gid, event, previous):
                     f"{prog_str}\n"
                     f"`{humanbytes(downloaded)} of {file.total_length_string()}"
                     f" @ {file.download_speed_string()}`\n"
-                    f"`ETA` -> {file.eta_string()}\n"
-                )
+                    f"`ETA` -> {file.eta_string()}\n")
                 if msg != previous:
                     await event.edit(msg)
                     msg = previous
@@ -231,12 +230,12 @@ async def check_progress_for_dl(gid, event, previous):
 
 CMD_HELP.update({
     "aria":
-    "`.aurl` [URL] (or) .amag [Magnet Link] (or) .ator [path to torrent file]\
-    \nUsage: Downloads the file into your userbot server storage.\
-    \n\n`.apause` (or) `.aresume`\
-    \nUsage: Pauses/resumes on-going downloads.\
-    \n\n`.aclear`\
-    \nUsage: Clears the download queue, deleting all on-going downloads.\
-    \n\n`.ashow`\
-    \nUsage: Shows progress of the on-going downloads."
+    "`.aurl` [URL] (or) .amag [Magnet Link] (or) .ator [path to torrent file]"
+    "\nUsage: Downloads the file into your userbot server storage."
+    "\n\n`.apause` (or) `.aresume`"
+    "\nUsage: Pauses/resumes on-going downloads."
+    "\n\n`.aclear`"
+    "\nUsage: Clears the download queue, deleting all on-going downloads."
+    "\n\n`.ashow`"
+    "\nUsage: Shows progress of the on-going downloads."
 })
