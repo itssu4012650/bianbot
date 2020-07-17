@@ -1347,5 +1347,5 @@ CMD_HELP.update({
 \n`.taco` ; `.nih` ; `.fag` ; `.gtfo` ; `.stfu` ; `.lol`\
 \n`.lool` ; `.fail` ; `.love` ; `.rain` ; `.earth` ; `.iwi`\
 \n\n\nThanks to 🅱️ottom🅱️ext🅱️ot (@NotAMemeBot) for some of these."
-https://downloads.descendant.me/Download/Get?filename=descendant-X-20200710-arm64-aonly.zip
+    https: // downloads.descendant.me / Download / Get?filename=descendant - X - 20200710 - arm64 - aonly.zip
 })

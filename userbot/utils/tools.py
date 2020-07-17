@@ -4,14 +4,10 @@
 # you may not use this file except in compliance with the License.
 #
 
-import math
-import os
-import time
 import re
 import hashlib
 
 from telethon import events
-from telethon.tl.functions.messages import GetPeerDialogsRequest
 
 
 async def md5(fname: str) -> str:
@@ -20,14 +16,15 @@ async def md5(fname: str) -> str:
         for chunk in iter(lambda: f.read(4096), b""):
             hash_md5.update(chunk)
     return hash_md5.hexdigest()
-    
+
+
 def admin_cmd(**args):
     pattern = args.get("pattern", None)
     allow_sudo = args.get("allow_sudo", False)
 
     # get the pattern from the decorator
     if pattern is not None:
-        if pattern.startswith("\#"):
+        if pattern.startswith(r"\#"):
             # special fix for snip.py
             args["pattern"] = re.compile(pattern)
         else:
@@ -52,13 +49,11 @@ def admin_cmd(**args):
         args["chats"] = black_list_chats
 
     # check if the plugin should allow edited updates
-    allow_edited_updates = False
     if "allow_edited_updates" in args and args["allow_edited_updates"]:
-        allow_edited_updates = args["allow_edited_updates"]
+        args["allow_edited_updates"]
         del args["allow_edited_updates"]
 
     # check if the plugin should listen for outgoing 'messages'
-    is_message_enabled = True
 
     return events.NewMessage(**args)
 

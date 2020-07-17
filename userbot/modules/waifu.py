@@ -51,8 +51,8 @@ async def waifu(animu):
 
 
 CMD_HELP.update({
-        "waifu": 
+    "waifu":
         ".waifu \
           \nUsage: Enchance your text with beautiful anime girl templates. \
           \n@StickerizerBot"
-    })
+})

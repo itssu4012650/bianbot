@@ -5,9 +5,10 @@ import time
 import asyncio
 from userbot.events import register
 import os
-from userbot import TEMP_DOWNLOAD_DIRECTORY ,bot
+from userbot import TEMP_DOWNLOAD_DIRECTORY, bot
 from userbot import CMD_HELP
-from userbot.utils import admin_cmd, humanbytes, progress, time_formatter
+from userbot.utils import progress
+
 
 @register(outgoing=True, pattern=r"^.togif(?: |$)(.*)")
 async def convert_gif(gif):
@@ -33,8 +34,8 @@ async def convert_gif(gif):
             directory_name = downloaded_file_name + ".gif"
             await gif.edit("`Converting your media....`")
             ff = ffmpy.FFmpeg(
-                inputs = {downloaded_file_name : None},
-                outputs = {directory_name : None})
+                inputs={downloaded_file_name: None},
+                outputs={directory_name: None})
             ff.run()
 
         except Exception as e:  # pylint:disable=C0103,W0703
@@ -81,8 +82,8 @@ async def convert_video(mp4):
             directory_name4 = downloaded_file_name4 + ".mp4"
             await mp4.edit("`Converting your media....`")
             ff = ffmpy.FFmpeg(
-                inputs = {downloaded_file_name4 : None},
-                outputs = {directory_name4 : None})
+                inputs={downloaded_file_name4: None},
+                outputs={directory_name4: None})
             ff.run()
 
         except Exception as e:  # pylint:disable=C0103,W0703
@@ -129,8 +130,8 @@ async def convert_music(mp3):
             directory_name3 = downloaded_file_name3 + ".mp3"
             await mp3.edit("`Converting your media....`")
             ff = ffmpy.FFmpeg(
-                inputs = {downloaded_file_name3 : None},
-                outputs = {directory_name3 : None})
+                inputs={downloaded_file_name3: None},
+                outputs={directory_name3: None})
             ff.run()
 
         except Exception as e:  # pylint:disable=C0103,W0703
@@ -177,8 +178,9 @@ async def convert_musicac(flac):
             directory_nameac = downloaded_file_nameac + ".flac"
             await flac.edit("`Converting your media....`")
             ff = ffmpy.FFmpeg(
-                inputs = {downloaded_file_nameac : None},
-                outputs = {directory_nameac : '-y -vn -acodec flac -ar 16000 -ac 1'})
+                inputs={
+                    downloaded_file_nameac: None}, outputs={
+                    directory_nameac: '-y -vn -acodec flac -ar 16000 -ac 1'})
             ff.run()
 
         except Exception as e:  # pylint:disable=C0103,W0703

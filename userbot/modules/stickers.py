@@ -31,8 +31,8 @@ KANGING_STR = [
     "Ihh, bagus nih\nCurry ahh~",
     "Curry lagi yee kan.....",
     "CURRY TROSS!!!",
-	"Bolehkah saya curry ni sticker\nau ah curry aja hehe",
-	"Curry Sticker ahh.....",
+    "Bolehkah saya curry ni sticker\nau ah curry aja hehe",
+    "Curry Sticker ahh.....",
 ]
 
 
@@ -312,8 +312,8 @@ async def get_pack_info(event):
         f"**Emojis In Pack:**\n{' '.join(pack_emojis)}"
 
     await event.edit(OUTPUT)
-    
-    
+
+
 @register(outgoing=True, pattern="^.getsticker$")
 async def sticker_to_png(sticker):
     if not sticker.is_reply:

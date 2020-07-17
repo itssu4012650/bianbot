@@ -9,15 +9,16 @@ from telethon.tl.types import Channel, Chat, User
 
 from userbot.events import register
 
-logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
-                    level=logging.WARNING)
+logging.basicConfig(
+    format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
+    level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 
-@register(outgoing=True, pattern=r"^.stats(?: |$)(.*)") 
+@register(outgoing=True, pattern=r"^.stats(?: |$)(.*)")
 async def stats(event: NewMessage.Event) -> None:  # pylint: disable = R0912, R0914, R0915
     """Command to get stats about the account"""
-    waiting_message = await event.edit('`Collecting stats, Wait Master`')
+    await event.edit('`Collecting stats, Wait Master`')
     start_time = time.time()
     private_chats = 0
     bots = 0
@@ -29,14 +30,13 @@ async def stats(event: NewMessage.Event) -> None:  # pylint: disable = R0912, R0
     creator_in_channels = 0
     unread_mentions = 0
     unread = 0
-    largest_group_member_count = 0
-    largest_group_with_admin = 0
     dialog: Dialog
     async for dialog in event.client.iter_dialogs():
         entity = dialog.entity
 
         if isinstance(entity, Channel):
-            # participants_count = (await event.get_participants(dialog, limit=0)).total
+            # participants_count = (await event.get_participants(dialog,
+            # limit=0)).total
             if entity.broadcast:
                 broadcast_channels += 1
                 if entity.creator or entity.admin_rights:
@@ -108,4 +108,3 @@ def user_full_name(user):
     names = [i for i in list(names) if i]
     full_name = ' '.join(names)
     return full_name
- 

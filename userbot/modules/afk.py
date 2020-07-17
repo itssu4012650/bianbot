@@ -8,7 +8,7 @@
 
 from datetime import datetime
 import time
-from random import choice, randint
+from random import randint
 
 from telethon.events import StopPropagation
 
@@ -52,6 +52,8 @@ afk_time = None
 afk_start = {}
 
 # =================================================================
+
+
 @register(outgoing=True, pattern="^.off(?: |$)(.*)", disable_errors=True)
 async def set_afk(afk_e):
     """For .afk command, allows you to inform people that you are afk when they message you"""
