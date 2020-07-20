@@ -5,6 +5,7 @@
 #
 """ Userbot initialization. """
 
+
 import os
 
 from sys import version_info
@@ -65,11 +66,7 @@ BOTLOG_CHATID = int(os.environ.get("BOTLOG_CHATID") or 0)
 
 # Userbot logging feature switch.
 BOTLOG = sb(os.environ.get("BOTLOG") or "False")
-if BOTLOG:
-    LOGSPAMMER = sb(os.environ.get("LOGSPAMMER") or "False")
-else:
-    LOGSPAMMER = False
-
+LOGSPAMMER = sb(os.environ.get("LOGSPAMMER") or "False") if BOTLOG else False
 # Bleep Blop, this is a bot ;)
 PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN") or "False")
 
@@ -118,9 +115,6 @@ LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY") or None
 # Anti Spambot Config
 ANTI_SPAMBOT = sb(os.environ.get("ANTI_SPAMBOT") or "False")
 ANTI_SPAMBOT_SHOUT = sb(os.environ.get("ANTI_SPAMBOT_SHOUT") or "False")
-
-# Youtube API key
-YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY") or None
 
 # Default .alive name
 ALIVE_NAME = os.environ.get("ALIVE_NAME") or None
