@@ -106,9 +106,8 @@ async def pipcheck(pip):
         if pipout:
             if len(pipout) > 4096:
                 await pip.edit("`Output too large, sending as file`")
-                file = open("output.txt", "w+")
-                file.write(pipout)
-                file.close()
+                with open("output.txt", "w+") as file:
+                    file.write(pipout)
                 await pip.client.send_file(
                     pip.chat_id,
                     "output.txt",
@@ -133,11 +132,11 @@ async def pipcheck(pip):
 async def amireallyalive(alive):
     """For .alive command, check if the bot is running."""
     output = ("`UserButt is running...`\n"
-              "`========================`\n"
-              f"👤 `User     :` {DEFAULTUSER}\n"
-              f"🐍 `Python   :` v{python_version()}\n"
-              f"⚙️ `Telethon :` v{version.__version__}\n"
-              "`========================`\n")
+              "`=============================`\n"
+              f"👤 `User        :` {DEFAULTUSER}\n"
+              f"🐍 `Python      :` v{python_version()}\n"
+              f"⚙️ `Telethon    :` v{version.__version__}\n"
+              "`=============================`\n")
     if ALIVE_LOGO:
         logo = ALIVE_LOGO
         await bot.send_file(alive.chat_id, logo, caption=output)

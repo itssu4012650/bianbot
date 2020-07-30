@@ -74,8 +74,8 @@ if __ is not None:
                     G_DRIVE_FOLDER_ID = __.split(
                         "folderview?id=")[1]
                 except IndexError:
-                    _1 = True if any(map(str.isdigit, __)) else False
-                    _2 = True if "-" in __ or "_" in __ else False
+                    _1 = bool(any(map(str.isdigit, __)))
+                    _2 = bool("-" in __ or "_" in __)
                     if True not in [_1 or _2]:
                         LOGS.info(
                             "G_DRIVE_FOLDER_ID "
@@ -571,7 +571,8 @@ async def create_dir(service, folder_name):
         'mimeType': 'application/vnd.google-apps.folder',
     }
     try:
-        pass
+        if parent_Id is not None:
+            pass
     except NameError:
         """- Fallback to G_DRIVE_FOLDER_ID else root dir -"""
         if G_DRIVE_FOLDER_ID is not None:
@@ -597,7 +598,8 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
         "mimeType": mimeType,
     }
     try:
-        pass
+        if parent_Id is not None:
+            pass
     except NameError:
         """- Fallback to G_DRIVE_FOLDER_ID else root dir -"""
         if G_DRIVE_FOLDER_ID is not None:
@@ -687,7 +689,8 @@ async def task_directory(gdrive, service, folder_path):
 async def reset_parentId():
     global parent_Id
     try:
-        pass
+        if parent_Id is not None:
+            pass
     except NameError:
         if G_DRIVE_FOLDER_ID is not None:
             parent_Id = G_DRIVE_FOLDER_ID
@@ -824,7 +827,8 @@ async def google_drive_managers(gdrive):
             'mimeType': 'application/vnd.google-apps.folder',
         }
         try:
-            pass
+            if parent_Id is not None:
+                pass
         except NameError:
             """- Fallback to G_DRIVE_FOLDER_ID else to root dir -"""
             if G_DRIVE_FOLDER_ID is not None:
@@ -1060,8 +1064,8 @@ async def google_drive(gdrive):
             uri = value.split()
         else:
             for fileId in value.split():
-                one = True if any(map(str.isdigit, fileId)) else False
-                two = True if "-" in fileId or "_" in fileId else False
+                one = bool(any(map(str.isdigit, fileId)))
+                two = bool("-" in fileId or "_" in fileId)
                 if True in [one or two]:
                     try:
                         reply += await download_gdrive(gdrive, service, fileId)
@@ -1179,8 +1183,8 @@ async def set_upload_folder(gdrive):
         ext_id = re.findall(r'\bhttps?://drive\.google\.com\S+', inp)[0]
     except IndexError:
         """- if given value isn't folderURL assume it's an Id -"""
-        c1 = True if any(map(str.isdigit, inp)) else False
-        c2 = True if "-" in inp or "_" in inp else False
+        c1 = bool(any(map(str.isdigit, inp)))
+        c2 = bool("-" in inp or "_" in inp)
         if True in [c1 or c2]:
             parent_Id = inp
             await gdrive.edit(

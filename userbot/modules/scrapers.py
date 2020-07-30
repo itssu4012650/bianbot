@@ -198,9 +198,8 @@ async def wiki(wiki_q):
         return await wiki_q.edit(f"Page not found.\n\n{pageerror}")
     result = summary(match)
     if len(result) >= 4096:
-        file = open("output.txt", "w+")
-        file.write(result)
-        file.close()
+        with open("output.txt", "w+") as file:
+            file.write(result)
         await wiki_q.client.send_file(
             wiki_q.chat_id,
             "output.txt",
@@ -231,10 +230,15 @@ async def urban_dict(ud_e):
     if int(meanlen) >= 0:
         if int(meanlen) >= 4096:
             await ud_e.edit("`Output too large, sending as file.`")
-            file = open("output.txt", "w+")
-            file.write("Text: " + query + "\n\nMeaning: " + mean[0]["def"] +
-                       "\n\n" + "Example: \n" + mean[0]["example"])
-            file.close()
+            with open("output.txt", "w+") as file:
+                file.write(
+                    "Text: " +
+                    query +
+                    "\n\nMeaning: " +
+                    mean[0]["def"] +
+                    "\n\n" +
+                    "Example: \n" +
+                    mean[0]["example"])
             await ud_e.client.send_file(
                 ud_e.chat_id,
                 "output.txt",
@@ -438,20 +442,44 @@ async def lang(value):
             f"`Language for {scraper} changed to {LANG.title()}.`")
 
 
-@register(outgoing=True, pattern="^.yt (.*)")
+@register(outgoing=True, pattern=r"^\.yt (\d*) *(.*)")
 async def yt_search(video_q):
     """For .yt command, do a YouTube search from Telegram."""
-    query = video_q.pattern_match.group(1)
+    if video_q.pattern_match.group(1) != "":
+        counter = int(video_q.pattern_match.group(1))
+        if counter > 10:
+            counter = int(10)
+        if counter <= 0:
+            counter = int(1)
+    else:
+        counter = int(5)
+
+    query = video_q.pattern_match.group(2)
     if not query:
         await video_q.edit("`Enter query to search`")
     await video_q.edit("`Processing...`")
+
     try:
-        results = json.loads(YoutubeSearch(query, max_results=7).to_json())
+        results = json.loads(
+            YoutubeSearch(
+                query,
+                max_results=counter).to_json())
     except KeyError:
         return await video_q.edit("`Youtube Search gone retard.\nCan't search this query!`")
+
     output = f"**Search Query:**\n`{query}`\n\n**Results:**\n\n"
+
     for i in results["videos"]:
-        output += (f"● `{i['title']}`\nhttps://www.youtube.com{i['url_suffix']}\n\n")
+        try:
+            title = i["title"]
+            link = "https://youtube.com" + i["url_suffix"]
+            channel = i["channel"]
+            duration = i["duration"]
+            views = i["views"]
+            output += f"[{title}]({link})\nChannel: `{channel}`\nDuration: {duration} | {views}\n\n"
+        except IndexError:
+            break
+
     await video_q.edit(output, link_preview=False)
 
 
@@ -587,11 +615,6 @@ def deEmojify(inputString):
     return get_emoji_regexp().sub(u'', inputString)
 
 
-def deEmojify(inputString):
-    """Remove emojis and other non-safe characters from string"""
-    return get_emoji_regexp().sub(u'', inputString)
-
-
 CMD_HELP.update({
     'img':
     '`.img` <search_query>\
@@ -626,8 +649,9 @@ CMD_HELP.update({
     '`.trt` <text> [or reply]\
         \nUsage: Translates text to the language which is set.\nUse .lang trt <language code> to set language for trt. (Default is English)'
 })
-CMD_HELP.update({'yt': '`.yt` <text>\
-        \nUsage: Does a YouTube search.'})
+CMD_HELP.update({'yt': '`.yt` <count> <query>'
+                 '\nUsage: Does a YouTube search.'
+                 '\nCan specify the number of results needed (default is 5).'})
 CMD_HELP.update(
     {"imdb": "`.imdb` <movie-name>\nShows movie info and other stuff."})
 CMD_HELP.update({

@@ -397,7 +397,7 @@ async def unmoot(unmot):
                 f"CHAT: {unmot.chat.title}(`{unmot.chat_id}`)")
 
 
-@register(incoming=True)
+@register(incoming=True, disable_errors=True)
 async def muter(moot):
     """Used for deleting the messages of muted people"""
     try:
@@ -420,9 +420,12 @@ async def muter(moot):
     if muted:
         for i in muted:
             if str(i.sender) == str(moot.sender_id):
-                await moot.delete()
-                await moot.client(
-                    EditBannedRequest(moot.chat_id, moot.sender_id, rights))
+                try:
+                    await moot.delete()
+                    await moot.client(
+                        EditBannedRequest(moot.chat_id, moot.sender_id, rights))
+                except (BadRequestError, UserAdminInvalidError, ChatAdminRequiredError, UserIdInvalidError):
+                    await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
     for i in gmuted:
         if i.sender == str(moot.sender_id):
             await moot.delete()
@@ -734,9 +737,8 @@ async def get_users(show):
     except MessageTooLongError:
         await show.edit(
             "Damn, this is a huge group. Uploading users lists as file.")
-        file = open("userslist.txt", "w+")
-        file.write(mentions)
-        file.close()
+        with open("userslist.txt", "w+") as file:
+            file.write(mentions)
         await show.client.send_file(
             show.chat_id,
             "userslist.txt",
@@ -824,9 +826,8 @@ async def get_usersdel(show):
     except MessageTooLongError:
         await show.edit(
             "Damn, this is a huge group. Uploading deletedusers lists as file.")
-        file = open("userslist.txt", "w+")
-        file.write(mentions)
-        file.close()
+        with open("userslist.txt", "w+") as file:
+            file.write(mentions)
         await show.client.send_file(
             show.chat_id,
             "deleteduserslist.txt",
@@ -912,9 +913,8 @@ async def get_bots(show):
     except MessageTooLongError:
         await show.edit(
             "Damn, too many bots here. Uploading bots list as file.")
-        file = open("botlist.txt", "w+")
-        file.write(mentions)
-        file.close()
+        with open("botlist.txt", "w+") as file:
+            file.write(mentions)
         await show.client.send_file(
             show.chat_id,
             "botlist.txt",
