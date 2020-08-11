@@ -41,9 +41,6 @@ async def convert_gif(gif):
         except Exception as e:  # pylint:disable=C0103,W0703
             await mone.edit(str(e))
 
-        except ValueError as e:
-            await mone.edit(str(e))
-
         await asyncio.sleep(7)
         await bot.send_file(
             gif.chat_id,
@@ -87,9 +84,6 @@ async def convert_video(mp4):
             ff.run()
 
         except Exception as e:  # pylint:disable=C0103,W0703
-            await mone4.edit(str(e))
-
-        except ValueError as e:
             await mone4.edit(str(e))
 
         await asyncio.sleep(7)
@@ -137,9 +131,6 @@ async def convert_music(mp3):
         except Exception as e:  # pylint:disable=C0103,W0703
             await mone3.edit(str(e))
 
-        except ValueError as e:
-            await mone3.edit(str(e))
-
         await asyncio.sleep(7)
         await bot.send_file(
             mp3.chat_id,
@@ -184,9 +175,6 @@ async def convert_musicac(flac):
             ff.run()
 
         except Exception as e:  # pylint:disable=C0103,W0703
-            await moneac.edit(str(e))
-
-        except ValueError as e:
             await moneac.edit(str(e))
 
         await asyncio.sleep(7)

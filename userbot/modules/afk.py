@@ -108,7 +108,7 @@ async def mention_afk(mention):
             datime_since_afk = now - afk_time  # pylint:disable=E0602
             time = float(datime_since_afk.seconds)
             days = time // (24 * 3600)
-            time = time % (24 * 3600)
+            time %= 24 * 3600
             hours = time // 3600
             time %= 3600
             minutes = time // 60
@@ -140,7 +140,7 @@ async def mention_afk(mention):
                         \n**Please come back later**")
                 USERS.update({mention.sender_id: 1})
                 COUNT_MSG = COUNT_MSG + 1
-            elif mention.sender_id in USERS:
+            else:
                 if USERS[mention.sender_id] % randint(2, 4) == 0:
                     if AFKREASON:
                         await mention.reply(f"**I'm still not available right now.** (Since **{afk_since}**).\
@@ -227,11 +227,8 @@ async def afk_on_pm(sender):
                     else:
                         await sender.reply(f"**I'm not available right now.** (Since **{afk_since}**).\
                         \n**Please come back later**")
-                    USERS[sender.sender_id] = USERS[sender.sender_id] + 1
-                    COUNT_MSG = COUNT_MSG + 1
-                else:
-                    USERS[sender.sender_id] = USERS[sender.sender_id] + 1
-                    COUNT_MSG = COUNT_MSG + 1
+                USERS[sender.sender_id] = USERS[sender.sender_id] + 1
+                COUNT_MSG = COUNT_MSG + 1
 
 
 CMD_HELP.update({
