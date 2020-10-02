@@ -53,7 +53,10 @@ async def last_fm(lastFM):
                          lastfm).get_now_playing().get_cover_image()
         except IndexError:
             image = None
-        tags = await gettags(isNowPlaying=True, playing=playing)
+        try:
+            tags = await gettags(isNowPlaying=True, playing=playing)
+        except WSError as err:
+            return await lastFM.edit(err)
         rectrack = parse.quote(f"{playing}")
         rectrack = sub("^", "https://open.spotify.com/search/",
                        rectrack)
@@ -72,7 +75,10 @@ async def last_fm(lastFM):
         for i, track in enumerate(recent):
             print(i)
             printable = await artist_and_song(track)
-            tags = await gettags(track)
+            try:
+                tags = await gettags(track)
+            except WSError as err:
+                return await lastFM.edit(err)
             rectrack = parse.quote(str(printable))
             rectrack = sub("^",
                            "https://open.spotify.com/search/",

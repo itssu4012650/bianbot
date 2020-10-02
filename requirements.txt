@@ -4,7 +4,6 @@ async_generator
 bs4
 cowpy
 cffi
-coffeehouse
 covid
 cryptg
 deezloader
@@ -21,12 +20,15 @@ gTTS
 gTTS-token
 hachoir
 heroku3
+html_telegraph_poster
 httplib2
 humanize
 instantmusic
+jikanpy
 lxml
 lyricsgenius
 oauth2client
+pendulum
 Pillow
 psutil
 psycopg2
@@ -46,11 +48,12 @@ search-engine-parser
 speedtest-cli
 sqlalchemy
 TgCrypto
-telethon==1.15.0
+telethon
 telethon-session-sqlalchemy
 telegraph
 urbandict
 wikipedia
 PyGithub
 python-dateutil
+vcsi
 youtube_search

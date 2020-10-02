@@ -12,8 +12,16 @@ from random import randint
 
 from telethon.events import StopPropagation
 
-from userbot import (AFKREASON, COUNT_MSG, CMD_HELP, ISAFK, BOTLOG,
-                     BOTLOG_CHATID, USERS, PM_AUTO_BAN)
+from userbot import (
+    AFKREASON,
+    COUNT_MSG,
+    CMD_HELP,
+    ISAFK,
+    BOTLOG,
+    BOTLOG_CHATID,
+    USERS,
+    PM_AUTO_BAN)  # pylint: disable=unused-imports
+
 from userbot.events import register
 
 USER_AFK = {}

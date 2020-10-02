@@ -5,6 +5,7 @@
 #
 """ Userbot module for getting information about the server. """
 
+import asyncio
 import platform
 import sys
 from asyncio import create_subprocess_exec as asyncrunapp
@@ -18,6 +19,7 @@ import psutil
 from telethon import __version__, version
 from git import Repo
 
+from telethon.errors.rpcerrorlist import MediaEmptyError
 from userbot import CMD_HELP, ALIVE_NAME, ALIVE_LOGO, bot
 from userbot.events import register
 
@@ -137,12 +139,21 @@ async def bot_ver(event):
             revout = str(stdout.decode().strip()) \
                 + str(stderr.decode().strip())
 
-        await event.edit("`Userbot Version: "
-                         f"{verout}"
-                         "` \n"
-                         "`Revision: "
-                         f"{revout}"
-                         "`")
+            com = await asyncrunapp(
+                "git",
+                "log",
+                "--pretty='%h : %s'",
+                "-1",
+                stdout=asyncPIPE,
+                stderr=asyncPIPE,
+            )
+            stdout, stderr = await com.communicate()
+            comout = str(stdout.decode().strip()) \
+                + str(stderr.decode().strip())
+
+        await event.edit(f"`Userbot Version: {verout}`\n"
+                         f"`Revision: {revout}`\n"
+                         f"`Latest commit: {comout}`")
     else:
         await event.edit(
             "Shame that you don't have git, You're running 9.0 - 'Extended' anyway"
@@ -207,11 +218,20 @@ async def amireallyalive(alive):
               f"🧩 `Loaded modules :` {len(modules)}\n"
               "`=================================`")
     if ALIVE_LOGO:
-        logo = ALIVE_LOGO
-        await bot.send_file(alive.chat_id, logo, caption=output)
-        await alive.delete()
+        try:
+            logo = ALIVE_LOGO
+            await alive.delete()
+            msg = await bot.send_file(alive.chat_id, logo, caption=output)
+        except MediaEmptyError:
+            msg = await alive.edit(output + "\n\n *`The provided logo is invalid."
+                                   "\nMake sure the link is directed to the logo picture`")
     else:
-        await alive.edit(output)
+        msg = await alive.edit(output)
+    await asyncio.sleep(45)
+    try:
+        await msg.delete()
+    except BaseException:
+        return
 
 
 @register(outgoing=True, pattern="^.aliveu")
