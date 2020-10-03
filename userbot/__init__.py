@@ -87,7 +87,7 @@ GENIUS = os.environ.get("GENIUS_API_TOKEN") or None
 
 # Custom (forked) repo URL for updater.
 UPSTREAM_REPO_URL = (os.environ.get("UPSTREAM_REPO_URL")
-                     or "https://github.com/KeselekPermen69/UserButt.git")
+                     or "https://github.com/BianSepang/UserButt.git")
 UPSTREAM_REPO_BRANCH = os.environ.get("UPSTREAM_REPO_BRANCH") or "sql-extended"
 
 # Console verbose logging
