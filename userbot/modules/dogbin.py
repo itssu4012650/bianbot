@@ -6,7 +6,9 @@
 """Userbot module containing commands for interacting with dogbin(https://del.dog)"""
 
 import os
-from requests import get, post, exceptions
+
+from requests import exceptions, get, post
+
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
@@ -29,7 +31,8 @@ async def paste(pstl):
         message = await pstl.get_reply_message()
         if message.media:
             downloaded_file_name = await pstl.client.download_media(
-                message, TEMP_DOWNLOAD_DIRECTORY,
+                message,
+                TEMP_DOWNLOAD_DIRECTORY,
             )
             m_list = None
             with open(downloaded_file_name, "rb") as fd:
@@ -70,7 +73,8 @@ async def paste(pstl):
     await pstl.edit(reply_text)
     if BOTLOG:
         await pstl.client.send_message(
-            BOTLOG_CHATID, "Paste query was executed successfully",
+            BOTLOG_CHATID,
+            "Paste query was executed successfully",
         )
 
 
@@ -88,11 +92,11 @@ async def get_dogbin_content(dog_url):
     format_view = f"{DOGBIN_URL}v/"
 
     if message.startswith(format_view):
-        message = message[len(format_view):]
+        message = message[len(format_view) :]
     elif message.startswith(format_normal):
-        message = message[len(format_normal):]
+        message = message[len(format_normal) :]
     elif message.startswith("del.dog/"):
-        message = message[len("del.dog/"):]
+        message = message[len("del.dog/") :]
     else:
         return await dog_url.edit("`Is that even a dogbin url?`")
 
@@ -116,20 +120,22 @@ async def get_dogbin_content(dog_url):
         return
 
     reply_text = (
-        "`Fetched dogbin URL content successfully!`"
-        "\n\n`Content:` " + resp.text)
+        "`Fetched dogbin URL content successfully!`" "\n\n`Content:` " + resp.text
+    )
 
     await dog_url.edit(reply_text)
     if BOTLOG:
         await dog_url.client.send_message(
-            BOTLOG_CHATID, "Get dogbin content query was executed successfully",
+            BOTLOG_CHATID,
+            "Get dogbin content query was executed successfully",
         )
 
 
-CMD_HELP.update({
-    "dogbin":
-    "`.paste` <text/reply>"
-    "\nUsage: Create a paste or a shortened url using dogbin (https://del.dog/)"
-    "\n\n`.getpaste` <reply/link>"
-    "\nUsage: Gets the content of a paste or shortened url from dogbin (https://del.dog/)"
-})
+CMD_HELP.update(
+    {
+        "dogbin": "`.paste` <text/reply>"
+        "\nUsage: Create a paste or a shortened url using dogbin (https://del.dog/)"
+        "\n\n`.getpaste` <reply/link>"
+        "\nUsage: Gets the content of a paste or shortened url from dogbin (https://del.dog/)"
+    }
+)

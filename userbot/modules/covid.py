@@ -6,6 +6,7 @@
 # Port to UserBot by @MoveAngel
 
 from covid import Covid
+
 from userbot import CMD_HELP
 from userbot.events import register
 
@@ -22,15 +23,16 @@ async def corona(event):
     try:
         country_data = covid.get_status_by_country_name(country)
         output_text = (
-            f"`Confirmed   : {format_integer(country_data['confirmed'])}`\n" +
-            f"`Active      : {format_integer(country_data['active'])}`\n" +
-            f"`Deaths      : {format_integer(country_data['deaths'])}`\n" +
-            f"`Recovered   : {format_integer(country_data['recovered'])}`\n\n" +
-            f"`New Cases   : {format_integer(country_data['new_cases'])}`\n" +
-            f"`New Deaths  : {format_integer(country_data['new_deaths'])}`\n" +
-            f"`Critical    : {format_integer(country_data['critical'])}`\n" +
-            f"`Total Tests : {format_integer(country_data['total_tests'])}`\n\n" +
-            f"Data provided by [Worldometer](https://www.worldometers.info/coronavirus/country/{country})")
+            f"`Confirmed   : {format_integer(country_data['confirmed'])}`\n"
+            + f"`Active      : {format_integer(country_data['active'])}`\n"
+            + f"`Deaths      : {format_integer(country_data['deaths'])}`\n"
+            + f"`Recovered   : {format_integer(country_data['recovered'])}`\n\n"
+            + f"`New Cases   : {format_integer(country_data['new_cases'])}`\n"
+            + f"`New Deaths  : {format_integer(country_data['new_deaths'])}`\n"
+            + f"`Critical    : {format_integer(country_data['critical'])}`\n"
+            + f"`Total Tests : {format_integer(country_data['total_tests'])}`\n\n"
+            + f"Data provided by [Worldometer](https://www.worldometers.info/coronavirus/country/{country})"
+        )
         await event.edit(f"Corona Virus Info in {country}:\n\n{output_text}")
     except ValueError:
         await event.edit(f"No information found for: {country}!")
@@ -56,8 +58,9 @@ def format_integer(number, thousand_separator="."):
     return result
 
 
-CMD_HELP.update({
-    "covid":
-    "`.covid` <country>"
-    "\nUsage: Get an information about data covid-19 in your country."
-})
+CMD_HELP.update(
+    {
+        "covid": "`.covid` <country>"
+        "\nUsage: Get an information about data covid-19 in your country."
+    }
+)

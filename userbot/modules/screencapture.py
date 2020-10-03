@@ -34,11 +34,13 @@ async def capture(url):
     height = driver.execute_script(
         "return Math.max(document.body.scrollHeight, document.body.offsetHeight, "
         "document.documentElement.clientHeight, document.documentElement.scrollHeight, "
-        "document.documentElement.offsetHeight);")
+        "document.documentElement.offsetHeight);"
+    )
     width = driver.execute_script(
         "return Math.max(document.body.scrollWidth, document.body.offsetWidth, "
         "document.documentElement.clientWidth, document.documentElement.scrollWidth, "
-        "document.documentElement.offsetWidth);")
+        "document.documentElement.offsetWidth);"
+    )
     driver.set_window_size(width + 125, height + 125)
     wait_for = height / 1000
     await url.edit(
@@ -57,16 +59,19 @@ async def capture(url):
     with io.BytesIO(im_png) as out_file:
         out_file.name = "screencapture.png"
         await url.edit("`Uploading screenshot as file..`")
-        await url.client.send_file(url.chat_id,
-                                   out_file,
-                                   caption=input_str,
-                                   force_document=True,
-                                   reply_to=message_id)
+        await url.client.send_file(
+            url.chat_id,
+            out_file,
+            caption=input_str,
+            force_document=True,
+            reply_to=message_id,
+        )
 
 
-CMD_HELP.update({
-    "ss":
-    "`.ss` <url>"
-    "\nUsage: Takes a screenshot of a website and sends the screenshot."
-    "\nExample of a valid URL : `https://www.google.com`"
-})
+CMD_HELP.update(
+    {
+        "ss": "`.ss` <url>"
+        "\nUsage: Takes a screenshot of a website and sends the screenshot."
+        "\nExample of a valid URL : `https://www.google.com`"
+    }
+)

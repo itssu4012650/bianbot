@@ -1,6 +1,7 @@
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from userbot import bot, CMD_HELP
+
+from userbot import CMD_HELP, bot
 from userbot.events import register
 
 
@@ -20,9 +21,8 @@ async def hazmat(event):
     async with bot.conversation("@hazmat_suit_bot") as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(
-                    incoming=True,
-                    from_users=905164246))
+                events.NewMessage(incoming=True, from_users=905164246)
+            )
             await bot.forward_messages(chat, reply_message)
             response = await response
         except YouBlockedUserError:
@@ -30,9 +30,14 @@ async def hazmat(event):
             return
         else:
             await event.delete()
-            await event.client.send_message(event.chat_id, response.message, reply_to=event.message.reply_to_msg_id)
+            await event.client.send_message(
+                event.chat_id, response.message, reply_to=event.message.reply_to_msg_id
+            )
 
-CMD_HELP.update({
-    "hazmat":
-    ".hz \
-\nUsage: Reply to a image / sticker to suit up!"})
+
+CMD_HELP.update(
+    {
+        "hazmat": ".hz \
+\nUsage: Reply to a image / sticker to suit up!"
+    }
+)

@@ -6,6 +6,7 @@
 # Port to UserBot by @MoveAngel
 
 import pyfiglet
+
 from userbot import CMD_HELP
 from userbot.events import register
 
@@ -27,7 +28,8 @@ async def figlet(event):
         "dotm": "dotmatrix",
         "bubble": "bubble",
         "bulb": "bulbhead",
-        "digi": "digital"}
+        "digi": "digital",
+    }
     input_str = event.pattern_match.group(1)
     if "|" in input_str:
         text, cmd = input_str.split("|", maxsplit=1)
@@ -49,8 +51,7 @@ async def figlet(event):
     await event.respond("‌‌‎`{}`".format(result))
     await event.delete()
 
-CMD_HELP.update({
-    "figlet":
-    "`.figlet`"
-    "\nUsage: Enhance ur text to strip line with anvil."
-})
+
+CMD_HELP.update(
+    {"figlet": "`.figlet`" "\nUsage: Enhance ur text to strip line with anvil."}
+)
