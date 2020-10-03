@@ -10,7 +10,7 @@ from userbot import CMD_HELP
 from userbot.utils import progress
 
 
-@register(outgoing=True, pattern=r"^.togif(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.togif(?: |$)(.*)")
 async def convert_gif(gif):
     if gif.fwd_from:
         return
@@ -58,7 +58,7 @@ async def convert_gif(gif):
         await gif.delete()
 
 
-@register(outgoing=True, pattern=r"^.tomp4(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.tomp4(?: |$)(.*)")
 async def convert_video(mp4):
     if mp4.fwd_from:
         return
@@ -106,7 +106,7 @@ async def convert_video(mp4):
         await mp4.delete()
 
 
-@register(outgoing=True, pattern=r"^.tomp3(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.tomp3(?: |$)(.*)")
 async def convert_music(mp3):
     if mp3.fwd_from:
         return
@@ -154,7 +154,7 @@ async def convert_music(mp3):
         await mp3.delete()
 
 
-@register(outgoing=True, pattern=r"^.toflac(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.toflac(?: |$)(.*)")
 async def convert_musicac(flac):
     if flac.fwd_from:
         return

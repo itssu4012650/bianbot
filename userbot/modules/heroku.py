@@ -36,7 +36,7 @@ else:
 
 
 @register(outgoing=True,
-          pattern=r"^.(get|del) var(?: |$)(\w*)")
+          pattern=r"^\.(get|del) var(?: |$)(\w*)")
 async def variable(var):
     exe = var.pattern_match.group(1)
     if app is None:
@@ -125,7 +125,7 @@ async def set_var(var):
 """Check account quota, remaining quota, used quota, used app quota"""
 
 
-@register(outgoing=True, pattern=r"^.usage(?: |$)")
+@register(outgoing=True, pattern=r"^\.usage(?: |$)")
 async def dyno_usage(dyno):
     """Get your account Dyno Usage"""
     await dyno.edit("`Getting Information...`")

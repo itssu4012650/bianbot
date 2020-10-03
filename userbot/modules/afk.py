@@ -288,6 +288,4 @@ CMD_HELP.update(
         "\nUsage: Sets you as afk."
         "\nReplies to anyone who tags/PM's you telling them that you are AFK(reason)."
         "\n\n>`.unoff`"
-        "\nUsage: Back from afk state"
-    }
-)
+        "\nUsage: Back from afk state"})

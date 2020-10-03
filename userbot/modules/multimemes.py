@@ -37,7 +37,7 @@ EMOJI_PATTERN = re.compile(
     "]+")
 
 
-@register(outgoing=True, pattern="^.mmf(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.mmf(?: |$)(.*)")
 async def mim(event):
     if event.fwd_from:
         return
@@ -362,7 +362,7 @@ async def lastname(steal):
         return await steal.edit("`Error: `@SangMataInfo_bot` is not responding!.`")
 
 
-@register(outgoing=True, pattern="^.waifu(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.waifu(?: |$)(.*)")
 async def waifu(animu):
     text = animu.pattern_match.group(1)
     if not text:

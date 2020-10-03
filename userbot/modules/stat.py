@@ -15,7 +15,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-@register(outgoing=True, pattern=r"^.stats(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.stats(?: |$)(.*)")
 async def stats(event: NewMessage.Event) -> None:  # pylint: disable = R0912, R0914, R0915
     """Command to get stats about the account"""
     await event.edit('`Collecting stats, Wait Master`')
