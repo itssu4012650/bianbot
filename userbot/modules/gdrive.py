@@ -50,9 +50,14 @@ GOOGLE_AUTH_URI = "https://accounts.google.com/o/oauth2/auth"
 GOOGLE_TOKEN_URI = "https://oauth2.googleapis.com/token"
 SCOPES = [
     "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive.metadata"
 ]
 REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob"
+G_DRIVE_DIR_MIME_TYPE = "application/vnd.google-apps.folder"
+G_DRIVE_FILE_LINK = "📄 <a href='https://drive.google.com/open?id={}'>{}</a> __({})__"
+G_DRIVE_FOLDER_LINK = "📁 <a href='https://drive.google.com/drive/folders/{}'>{}</a> __(folder)__"
+
 # =========================================================== #
 #      STATIC CASE FOR G_DRIVE_FOLDER_ID IF VALUE IS URL      #
 # =========================================================== #
@@ -503,24 +508,6 @@ async def download_gdrive(gdrive, service, uri):
         f"`Path   :` `{file_path}`\n"
         "`Status :` **OK** - Successfully downloaded."
     )
-    msg = await gdrive.respond("`Answer the question in your BOTLOG group`")
-    async with gdrive.client.conversation(BOTLOG_CHATID) as conv:
-        ask = await conv.send_message("`Proceed with mirroring? [y/N]`")
-        try:
-            r = conv.wait_event(
-              events.NewMessage(outgoing=True, chats=BOTLOG_CHATID))
-            r = await r
-        except Exception:
-            ans = 'N'
-        else:
-            ans = r.message.message.strip()
-            await gdrive.client.delete_messages(BOTLOG_CHATID, r.id)
-        await gdrive.client.delete_messages(gdrive.chat_id, msg.id)
-        await gdrive.client.delete_messages(BOTLOG_CHATID, ask.id)
-    if ans.capitalize() == 'N':
-        return reply
-    elif ans.capitalize() == "Y":
-        try:
             result = await upload(
                 gdrive, service, file_path, file_name, mimeType)
         except CancelProcess:
@@ -528,20 +515,6 @@ async def download_gdrive(gdrive, service, uri):
                 "`[FILE - CANCELLED]`\n\n"
                 "`Status` : **OK** - received signal cancelled."
             )
-        else:
-            reply += (
-                "`[FILE - UPLOAD]`\n\n"
-                f"`Name   :` `{file_name}`\n"
-                f"`Size   :` `{humanbytes(result[0])}`\n"
-                f"`Link   :` [{file_name}]({result[1]})\n"
-                "`Status :` **OK**\n\n"
-            )
-        return reply
-    else:
-        await gdrive.client.send_message(
-            BOTLOG_CHATID,
-            "`Invalid answer type [Y/N] only...`"
-        )
         return reply
 
 
